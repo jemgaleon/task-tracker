@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div>
       <h4>Version 1.0.1</h4>
-      <Link to='/'>Go Back</Link>
+      <Link to='./'>Go Back</Link>
     </div>
   );
 };
