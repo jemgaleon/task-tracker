@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import About from './components/About';
 
 function App() {
+  const jsonServerUrl = 'https://mukhasim-json-server.herokuapp.com/tasks'; // http://localhost:5000/tasks
   const [showAdd, setShowAdd] = useState(false);
   const [tasks, setTasks] = useState([]);
 
@@ -21,7 +22,7 @@ function App() {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:5000/tasks');
+    const res = await fetch(`${jsonServerUrl}`);
     const data = await res.json();
 
     return data;
@@ -29,7 +30,7 @@ function App() {
 
   // Fetch Task
   const fetchTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`);
+    const res = await fetch(`${jsonServerUrl}/${id}`);
     const data = await res.json();
 
     return data;
@@ -37,7 +38,7 @@ function App() {
 
   // Add Task
   const handleAdd = async (task) => {
-    const res = await fetch('http://localhost:5000/tasks', {
+    const res = await fetch(`${jsonServerUrl}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +57,7 @@ function App() {
 
   // Delete Task
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/tasks/${id}`, { method: 'DELETE' });
+    await fetch(`${jsonServerUrl}/${id}`, { method: 'DELETE' });
 
     setTasks(tasks.filter((task) => task.id !== id));
   };
@@ -66,7 +67,7 @@ function App() {
     const taskToToggle = await fetchTask(id);
     const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+    const res = await fetch(`${jsonServerUrl}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ function App() {
       complete: !taskToComplete.complete,
     };
 
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+    const res = await fetch(`${jsonServerUrl}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
